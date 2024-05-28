@@ -26,7 +26,7 @@ public class Comentario {
     @NotBlank
     private String CONTEUDO;
 
-    private LocalDate INCLUSAO = LocalDate.now();
+    private LocalDate DT_COMENTARIO_INCLUSAO = LocalDate.now();
 
     @ManyToOne
     private Usuario usuario;

@@ -40,7 +40,7 @@ public class Usuario {
     @Pattern(regexp = "\\d+", message = "Número de telefone inválido") @Size(min = 8, max = 14)
     private String NUMERO_TELEFONE;
 
-    private LocalDate DATA_INCLUSAO = LocalDate.now();
+    private LocalDate DT_USUARIO_INCLUSAO = LocalDate.now();
 
     public EntityModel<Usuario> toEntityModel() {
         return EntityModel.of(
