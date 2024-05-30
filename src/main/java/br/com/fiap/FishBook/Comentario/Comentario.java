@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -20,7 +21,8 @@ import lombok.Data;
 public class Comentario {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMENTARIO_SEQ")
+    @SequenceGenerator(name = "COMENTARIO_SEQ", sequenceName = "TB_COMENTARIO_SEQ", allocationSize = 1)
     private Long ID_COMENTARIO;
 
     @NotBlank

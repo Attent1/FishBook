@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -21,7 +22,9 @@ import lombok.Data;
 @Entity(name = "TB_PRODUTO")
 public class Produto {
     
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUTO_SEQ")
+    @SequenceGenerator(name = "PRODUTO_SEQ", sequenceName = "TB_PRODUTO_SEQ", allocationSize = 1)
     private Long ID_PRODUTO;
 
     @TipoProduto(message = "{produto.tipo.invalido}")

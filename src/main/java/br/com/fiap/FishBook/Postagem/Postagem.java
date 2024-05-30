@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -20,7 +21,8 @@ import lombok.Data;
 public class Postagem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "POSTAGEM_SEQ")    
+    @SequenceGenerator(name = "POSTAGEM_SEQ", sequenceName = "TB_POSTAGEM_SEQ", allocationSize = 1)
     private Long ID_POSTAGEM;
 
     @NotBlank

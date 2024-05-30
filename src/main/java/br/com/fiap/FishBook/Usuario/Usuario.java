@@ -7,10 +7,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.springframework.hateoas.EntityModel;
 import br.com.fiap.FishBook.Usuario.validation.Tipo;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -21,7 +23,9 @@ import lombok.Data;
 
 public class Usuario {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQ")
+    @SequenceGenerator(name = "USUARIO_SEQ", sequenceName = "TB_USUARIO_SEQ", allocationSize = 1)
     private Long ID_USUARIO;
 
     @NotBlank  @Size(min = 1,max = 100)
@@ -29,6 +33,7 @@ public class Usuario {
     
     @NotBlank @Pattern(regexp = "^(.+)@(\\S+)$", message = "Email inválido")
     @Size(max = 50)
+    @Column(unique = true)
     private String EMAIL;
 
     @NotBlank @Size(min=8, max=8, message = "tamanho deve ser 8")
