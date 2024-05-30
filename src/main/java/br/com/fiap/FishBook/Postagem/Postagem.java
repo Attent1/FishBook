@@ -6,10 +6,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.hateoas.EntityModel;
 import java.time.LocalDate;
 import br.com.fiap.FishBook.Usuario.Usuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
@@ -32,9 +34,11 @@ public class Postagem {
     @NotBlank
     private String CONTEUDO;
 
-    private LocalDate DT_POSTAGEM_INCLUSAO = LocalDate.now();
+    @Column(name = "DT_POSTAGEM_INCLUSAO")
+    private LocalDate dtPostagemInclusao = LocalDate.now();
 
     @ManyToOne
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     public EntityModel<Postagem> toEntityModel() {

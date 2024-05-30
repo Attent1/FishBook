@@ -57,7 +57,7 @@ public class PostagemController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todas as postagems.", description = "Retorna uma lista de todas os postagems no sistema.") 
-    public PagedModel<EntityModel<Postagem>> readAll(@PageableDefault(size = 5, sort = "INCLUSAO", direction = Direction.ASC) Pageable pageable) {
+    public PagedModel<EntityModel<Postagem>> readAll(@PageableDefault(size = 5, sort = "dtPostagemInclusao", direction = Direction.DESC) Pageable pageable) {
         Page<Postagem> page = repository.findAll(pageable);
         return pageAssembler.toModel(page, Postagem::toEntityModel);
     }

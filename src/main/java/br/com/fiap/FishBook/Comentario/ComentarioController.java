@@ -57,7 +57,7 @@ public class ComentarioController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todos os comentários.", description = "Retorna uma lista de todos os comentários no sistema.") 
-    public PagedModel<EntityModel<Comentario>> readAll(@PageableDefault(size = 5, sort = "INCLUSAO", direction = Direction.ASC) Pageable pageable) {
+    public PagedModel<EntityModel<Comentario>> readAll(@PageableDefault(size = 5, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
         Page<Comentario> page = repository.findAll(pageable);
         return pageAssembler.toModel(page, Comentario::toEntityModel);
     }

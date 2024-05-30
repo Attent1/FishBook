@@ -7,10 +7,12 @@ import java.time.LocalDate;
 import org.springframework.hateoas.EntityModel;
 import br.com.fiap.FishBook.Postagem.Postagem;
 import br.com.fiap.FishBook.Usuario.Usuario;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
@@ -26,14 +28,18 @@ public class Comentario {
     private Long ID_COMENTARIO;
 
     @NotBlank
+    @Column(name = "CONTEUDO_COMENTARIO")
     private String CONTEUDO;
 
-    private LocalDate DT_COMENTARIO_INCLUSAO = LocalDate.now();
+    @Column(name = "DT_COMENTARIO_INCLUSAO")
+    private LocalDate dtComentarioInclusao = LocalDate.now();
 
     @ManyToOne
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     @ManyToOne
+    @JoinColumn(name = "ID_POSTAGEM")
     private Postagem postagem;
 
     public EntityModel<Comentario> toEntityModel() {
