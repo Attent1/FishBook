@@ -21,7 +21,7 @@ public class EmailController {
     public String sendEmail(@RequestBody @Valid Email email) {
         try {
             emailService.sendEmailText(email.getDestinatario(), email.getAssunto(), email.getConteudo()); 
-            return "Email enviado";              
+            return "Email enviado para " + email.getDestinatario();              
         } catch (Exception e) {
             return "Falha no envio" + e.getLocalizedMessage();
         }

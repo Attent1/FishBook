@@ -16,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -92,6 +94,19 @@ public class UsuarioController {
     private Usuario verificarSeExisteUsuario(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Usuário não encontrado"));
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String senha) {
+        Usuario usuario = repository.LoginUsuario(email);
+        
+        if (usuario != null) {
+            if (usuario.getSENHA().equals(senha)) {                
+                return ResponseEntity.ok("ID: " + usuario.getID_USUARIO() + " Cod status: " + HttpStatus.OK.value());
+                
+            }
+        }        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cod status: " + HttpStatus.BAD_REQUEST.value());
     }
 
 }
