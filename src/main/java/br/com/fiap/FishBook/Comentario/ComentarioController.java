@@ -57,7 +57,7 @@ public class ComentarioController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todos os comentários.", description = "Retorna uma lista de todos os comentários no sistema.") 
-    public PagedModel<EntityModel<Comentario>> readAll(@PageableDefault(size = 5, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
+    public PagedModel<EntityModel<Comentario>> readAll(@PageableDefault(size = 500, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
         Page<Comentario> page = repository.findAll(pageable);
         return pageAssembler.toModel(page, Comentario::toEntityModel);
     }
@@ -68,6 +68,13 @@ public class ComentarioController {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("comentariosUsuario/{idUsuario}")
+    @Operation(summary = "Retorna os comentários de um usuário")
+    public PagedModel<EntityModel<Comentario>> readIComentariosByUsuario(@PathVariable Long idUsuario, @PageableDefault(size = 500, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
+        Page<Comentario> page = repository.findByUsuarioId(idUsuario, pageable);
+        return pageAssembler.toModel(page, Comentario::toEntityModel);    
     }
 
     @PutMapping("{id}")

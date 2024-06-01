@@ -70,6 +70,13 @@ public class ProdutoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+ @GetMapping("produtosUsuario/{idUsuario}")
+    @Operation(summary = "Retorna produtos de um usuário")
+    public PagedModel<EntityModel<Produto>> readIProtudosByUsuario(@PathVariable Long idUsuario, @PageableDefault(size = 500, sort = "PRECO", direction = Direction.DESC) Pageable pageable) {
+        Page<Produto> page = repository.findByUsuarioId(idUsuario, pageable);
+        return pageAssembler.toModel(page, Produto::toEntityModel);    
+    }
+
     @PutMapping("{id}")
     @ResponseStatus(OK)
     @CacheEvict(allEntries = true)

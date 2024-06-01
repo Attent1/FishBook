@@ -3,6 +3,7 @@ package br.com.fiap.FishBook.Postagem;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
+
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class PostagemController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todas as postagems.", description = "Retorna uma lista de todas os postagems no sistema.") 
-    public PagedModel<EntityModel<Postagem>> readAll(@PageableDefault(size = 5, sort = "dtPostagemInclusao", direction = Direction.DESC) Pageable pageable) {
+    public PagedModel<EntityModel<Postagem>> readAll(@PageableDefault(size = 500, sort = "dtPostagemInclusao", direction = Direction.DESC) Pageable pageable) {
         Page<Postagem> page = repository.findAll(pageable);
         return pageAssembler.toModel(page, Postagem::toEntityModel);
     }
@@ -68,6 +69,13 @@ public class PostagemController {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("postagensUsuario/{idUsuario}")
+    @Operation(summary = "Retorna postagens de um usuário")
+    public PagedModel<EntityModel<Postagem>> readIPostagensByUsuario(@PathVariable Long idUsuario, @PageableDefault(size = 500, sort = "dtPostagemInclusao", direction = Direction.DESC) Pageable pageable) {
+        Page<Postagem> page = repository.findByUsuarioId(idUsuario, pageable);
+        return pageAssembler.toModel(page, Postagem::toEntityModel);    
     }
 
     @PutMapping("{id}")
