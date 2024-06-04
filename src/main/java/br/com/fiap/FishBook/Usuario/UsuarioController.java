@@ -102,7 +102,7 @@ public class UsuarioController {
         
         if (usuario != null) {
             if (usuario.getSENHA().equals(senha)) {                
-                return ResponseEntity.ok("ID: " + usuario.getID_USUARIO() + " Cod status: " + HttpStatus.OK.value());
+                return ResponseEntity.ok("ID:" + usuario.getID_USUARIO());
                 
             }
         }        

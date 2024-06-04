@@ -72,11 +72,18 @@ public class ComentarioController {
 
     @GetMapping("comentariosUsuario/{idUsuario}")
     @Operation(summary = "Retorna os comentários de um usuário")
-    public PagedModel<EntityModel<Comentario>> readIComentariosByUsuario(@PathVariable Long idUsuario, @PageableDefault(size = 500, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
+    public PagedModel<EntityModel<Comentario>> readComentariosByUsuario(@PathVariable Long idUsuario, @PageableDefault(size = 500, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
         Page<Comentario> page = repository.findByUsuarioId(idUsuario, pageable);
         return pageAssembler.toModel(page, Comentario::toEntityModel);    
     }
 
+    @GetMapping("comentariosPostagem/{idPostagem}")
+    @Operation(summary = "Retorna os comentários de uma postagem")
+    public PagedModel<EntityModel<Comentario>> readComentariosByPostagem(@PathVariable Long idPostagem, @PageableDefault(size = 500, sort = "dtComentarioInclusao", direction = Direction.DESC) Pageable pageable) {
+        Page<Comentario> page = repository.findByPostagemId(idPostagem, pageable);
+        return pageAssembler.toModel(page, Comentario::toEntityModel);    
+    }
+    
     @PutMapping("{id}")
     @ResponseStatus(OK)
     @CacheEvict(allEntries = true)

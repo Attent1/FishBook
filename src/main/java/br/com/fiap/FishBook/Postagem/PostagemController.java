@@ -4,6 +4,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.fiap.FishBook.Comentario.Comentario;
+import br.com.fiap.FishBook.Comentario.ComentarioController;
+import br.com.fiap.FishBook.Comentario.ComentarioRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -43,6 +48,12 @@ public class PostagemController {
 
     @Autowired
     PostagemRepository repository;
+
+    @Autowired
+    ComentarioRepository repositoryComentario;
+
+    @Autowired
+    ComentarioController controllerComentario;
 
     @Autowired
     PagedResourcesAssembler<Postagem> pageAssembler;
@@ -90,9 +101,13 @@ public class PostagemController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
-    @Operation(summary = "Deleta uma postagem.", description = "Remove uma postagem pelo seu ID.")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
+    @Operation(summary = "Deleta uma postagem e seus comentários.", description = "Remove uma postagem pelo seu ID.")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {        
         verificarSeExistePostagem(id);
+        List<Comentario> comentarios = repositoryComentario.findByPostagemId(id);
+        for (int i = 0; i < comentarios.size(); i++) {
+            controllerComentario.delete(comentarios.get(i).getID_COMENTARIO());
+        }
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }

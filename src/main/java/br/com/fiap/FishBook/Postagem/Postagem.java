@@ -28,7 +28,7 @@ public class Postagem {
     private Long ID_POSTAGEM;
 
     @NotBlank
-    @Size(min = 5, max = 15)
+    @Size(min = 5, max = 30)
     private String TITULO;
 
     @NotBlank

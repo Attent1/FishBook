@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -37,7 +39,8 @@ public class Produto {
     @Positive
     private BigDecimal PRECO;
 
-    @Positive
+    @Min(value = 0, message = "Disponibilidade só pode ser 0 ou 1") 
+    @Max(value = 1, message = "Disponibilidade só pode ser 0 ou 1")
     private int DISPONIBILIDADE;
     
     @ManyToOne
