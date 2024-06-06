@@ -5,6 +5,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.time.LocalDate;
 import org.springframework.hateoas.EntityModel;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.fiap.FishBook.Postagem.Postagem;
 import br.com.fiap.FishBook.Usuario.Usuario;
 import jakarta.persistence.Column;
@@ -31,6 +34,7 @@ public class Comentario {
     @Column(name = "CONTEUDO_COMENTARIO")
     private String CONTEUDO;
 
+    @JsonFormat(pattern="dd/MM/yyyy")
     @Column(name = "DT_COMENTARIO_INCLUSAO")
     private LocalDate dtComentarioInclusao = LocalDate.now();
 
