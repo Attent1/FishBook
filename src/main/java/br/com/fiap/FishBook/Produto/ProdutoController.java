@@ -57,7 +57,7 @@ public class ProdutoController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todos os produtos.", description = "Retorna uma lista de todos os produtos no sistema.")
-    public PagedModel<EntityModel<Produto>> readAll(@PageableDefault(size = 5, sort = "PRECO", direction = Direction.ASC) Pageable pageable) {
+    public PagedModel<EntityModel<Produto>> readAll(@PageableDefault(size = 500, sort = "PRECO", direction = Direction.ASC) Pageable pageable) {
         Page<Produto> page = repository.findAll(pageable);
         return pageAssembler.toModel(page, Produto::toEntityModel);
     }
