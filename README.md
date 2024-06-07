@@ -1,4 +1,8 @@
+## Video do software funcionando
+    https://www.youtube.com/watch?v=FljEh6Yr-Wo
+
 ## Links Deploy 
+    A aplicação pode levar alguns minutos para subir assim que o link for acessado.
     Aplicação - https://fishbook-m85t.onrender.com
     Documentação - https://fishbook-m85t.onrender.com/docs
 
@@ -8,6 +12,6 @@
     https://fishbook-m85t.onrender.com/comentarios
     https://fishbook-m85t.onrender.com/produtos
     
-## Teste do endpoints
+## Para os testes dos endpoints
     Tipos permitidos na model produto -> PEIXES CRUSTACEOS MOLUSCOS ALGAS
     Tipos permitidos na model usuario -> AQUICULTOR ESPECIALISTA ENTUSIASTA
