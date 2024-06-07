@@ -1,3 +1,5 @@
+## Video Pitch
+    https://www.youtube.com/watch?v=brlNuPfC4k8
 ## Video do software funcionando
     https://www.youtube.com/watch?v=FljEh6Yr-Wo
 
