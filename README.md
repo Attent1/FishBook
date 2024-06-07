@@ -13,5 +13,7 @@
     https://fishbook-m85t.onrender.com/produtos
     
 ## Para os testes dos endpoints
+    Requisições para teste no insomnia estão dentro da pasta Documentos
     Tipos permitidos na model produto -> PEIXES CRUSTACEOS MOLUSCOS ALGAS
     Tipos permitidos na model usuario -> AQUICULTOR ESPECIALISTA ENTUSIASTA
+    
